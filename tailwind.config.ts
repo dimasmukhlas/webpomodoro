@@ -63,6 +63,18 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				}
 			},
+			backgroundImage: {
+				'gradient-sea': 'var(--gradient-sea)',
+				'gradient-forest': 'var(--gradient-forest)',
+				'gradient-woodfire': 'var(--gradient-woodfire)',
+				'gradient-lake': 'var(--gradient-lake)',
+			},
+			transitionProperty: {
+				'theme': 'background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter',
+			},
+			transitionDuration: {
+				'theme': '800ms',
+			},
 			borderRadius: {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
@@ -84,11 +96,26 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'timer-pulse': {
+					'0%, 100%': { transform: 'scale(1)', opacity: '1' },
+					'50%': { transform: 'scale(1.05)', opacity: '0.8' }
+				},
+				'theme-fade': {
+					'0%': { opacity: '0', transform: 'scale(0.95)' },
+					'100%': { opacity: '1', transform: 'scale(1)' }
+				},
+				'gentle-float': {
+					'0%, 100%': { transform: 'translateY(0px)' },
+					'50%': { transform: 'translateY(-10px)' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'timer-pulse': 'timer-pulse 2s ease-in-out infinite',
+				'theme-fade': 'theme-fade 0.8s ease-out',
+				'gentle-float': 'gentle-float 3s ease-in-out infinite'
 			}
 		}
 	},
