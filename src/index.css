@@ -2,78 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Nature-themed Pomodoro Timer Design System */
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
 
 @layer base {
   :root {
-    /* Base theme - Default/Sea */
-    --background: 210 25% 8%;
-    --foreground: 0 0% 98%;
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
 
-    --card: 210 25% 12%;
-    --card-foreground: 0 0% 95%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
 
-    --popover: 210 25% 10%;
-    --popover-foreground: 0 0% 95%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 195 100% 75%;
-    --primary-foreground: 210 25% 8%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
 
-    --secondary: 210 25% 16%;
-    --secondary-foreground: 0 0% 90%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
 
-    --muted: 210 25% 14%;
-    --muted-foreground: 210 15% 65%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 195 100% 65%;
-    --accent-foreground: 210 25% 8%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
 
-    --destructive: 0 75% 65%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
 
-    --border: 210 25% 20%;
-    --input: 210 25% 16%;
-    --ring: 195 100% 75%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
 
-    --radius: 1rem;
-
-    /* Nature theme colors */
-    --sea-primary: 195 100% 75%;
-    --sea-secondary: 200 100% 60%;
-    --sea-background: 210 25% 8%;
-    --sea-card: 210 25% 12%;
-
-    --forest-primary: 120 60% 70%;
-    --forest-secondary: 100 50% 45%;
-    --forest-background: 120 25% 8%;
-    --forest-card: 120 25% 12%;
-
-    --woodfire-primary: 25 100% 70%;
-    --woodfire-secondary: 15 90% 55%;
-    --woodfire-background: 15 25% 8%;
-    --woodfire-card: 15 25% 12%;
-
-    --lake-primary: 220 80% 75%;
-    --lake-secondary: 240 70% 60%;
-    --lake-background: 230 25% 8%;
-    --lake-card: 230 25% 12%;
-
-    /* Gradients */
-    --gradient-sea: linear-gradient(135deg, hsl(195 100% 20%), hsl(210 80% 15%));
-    --gradient-forest: linear-gradient(135deg, hsl(120 40% 20%), hsl(100 30% 15%));
-    --gradient-woodfire: linear-gradient(135deg, hsl(25 60% 25%), hsl(15 40% 15%));
-    --gradient-lake: linear-gradient(135deg, hsl(220 50% 20%), hsl(240 40% 15%));
-
-    /* Timer colors */
-    --timer-progress: var(--primary);
-    --timer-track: hsl(var(--muted));
-    --timer-glow: hsl(var(--primary) / 0.3);
-
-    /* Animations */
-    --transition-theme: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
-    --radius: 1rem;
+    --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
 
