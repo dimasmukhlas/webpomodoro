@@ -15,6 +15,7 @@ interface TaskColumnProps {
   tasks: Task[];
   onTaskMove: (taskId: string, newStatus: TaskStatus) => void;
   onTaskDelete: (taskId: string) => void;
+  onUpdateColor?: (taskId: string, color: string) => void;
   isDoingColumn?: boolean;
   currentTaskId?: string;
   columnStatus: TaskStatus;
@@ -26,6 +27,7 @@ export const TaskColumn = ({
   tasks,
   onTaskMove,
   onTaskDelete,
+  onUpdateColor,
   isDoingColumn = false,
   currentTaskId,
   columnStatus
@@ -74,6 +76,28 @@ export const TaskColumn = ({
       setIsAddingTask(false);
       setNewTaskTitle('');
     }
+  };
+
+  const calculateAverageCompletionTime = () => {
+    const completedTasks = tasks.filter(task => 
+      task.status === 'done' && task.completed_at && task.created_at
+    );
+    
+    if (completedTasks.length === 0) return null;
+    
+    const totalMs = completedTasks.reduce((sum, task) => {
+      const start = new Date(task.created_at);
+      const end = new Date(task.completed_at!);
+      return sum + (end.getTime() - start.getTime());
+    }, 0);
+    
+    const avgMs = totalMs / completedTasks.length;
+    const avgDays = Math.floor(avgMs / (1000 * 60 * 60 * 24));
+    const avgHours = Math.floor((avgMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    
+    if (avgDays > 0) return `${avgDays}d ${avgHours}h`;
+    if (avgHours > 0) return `${avgHours}h`;
+    return '< 1h';
   };
 
   return (
@@ -145,9 +169,16 @@ export const TaskColumn = ({
             task={task}
             onMove={onTaskMove}
             onDelete={onTaskDelete}
+            onUpdateColor={onUpdateColor}
             isActive={task.id === currentTaskId}
           />
         ))}
+        
+        {columnStatus === 'done' && tasks.length > 0 && calculateAverageCompletionTime() && (
+          <div className="text-xs text-muted-foreground text-center p-2 border-t">
+            Avg completion time: {calculateAverageCompletionTime()}
+          </div>
+        )}
         
         {tasks.length === 0 && !isAddingTask && (
           <div className="text-center py-8 text-muted-foreground">

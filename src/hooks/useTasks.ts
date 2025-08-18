@@ -54,13 +54,13 @@ export const useTasks = () => {
     }
   };
 
-  // Update task status
-  const updateTaskStatus = async (taskId: string, status: TaskStatus) => {
+  // Update task with any fields
+  const updateTask = async (taskId: string, updates: Partial<Task>) => {
     if (!user) return;
 
     const { error } = await supabase
       .from('tasks')
-      .update({ status })
+      .update(updates)
       .eq('id', taskId)
       .eq('user_id', user.id);
 
@@ -69,18 +69,23 @@ export const useTasks = () => {
     } else {
       setTasks(prev => 
         prev.map(task => 
-          task.id === taskId ? { ...task, status } : task
+          task.id === taskId ? { ...task, ...updates } : task
         )
       );
       
       // Update current task if needed
-      if (status === 'doing') {
+      if (updates.status === 'doing') {
         const task = tasks.find(t => t.id === taskId);
-        if (task) setCurrentTask({ ...task, status });
-      } else if (currentTask?.id === taskId) {
+        if (task) setCurrentTask({ ...task, ...updates });
+      } else if (currentTask?.id === taskId && updates.status && (updates.status === 'todo' || updates.status === 'done')) {
         setCurrentTask(null);
       }
     }
+  };
+
+  // Update task status (convenience method)
+  const updateTaskStatus = async (taskId: string, status: TaskStatus) => {
+    await updateTask(taskId, { status });
   };
 
   // Delete task
@@ -139,6 +144,7 @@ export const useTasks = () => {
     currentTask,
     setCurrentTask,
     createTask,
+    updateTask,
     updateTaskStatus,
     deleteTask,
     logTime,

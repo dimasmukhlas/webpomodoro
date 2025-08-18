@@ -14,7 +14,7 @@ const columns: { id: TaskStatus; title: string; description: string }[] = [
 ];
 
 export const TaskBoard = () => {
-  const { tasks, currentTask, updateTaskStatus, deleteTask, setCurrentTask } = useTasks();
+  const { tasks, currentTask, updateTaskStatus, deleteTask, setCurrentTask, updateTask } = useTasks();
   const [showTaskForm, setShowTaskForm] = useState(false);
 
   const getTasksByStatus = (status: TaskStatus): Task[] => {
@@ -35,7 +35,19 @@ export const TaskBoard = () => {
       setCurrentTask({ ...task, status: 'doing' });
     }
 
-    await updateTaskStatus(taskId, newStatus);
+    // Set completion time when moving to done
+    if (newStatus === 'done' && task.status !== 'done') {
+      await updateTask(taskId, { 
+        status: newStatus,
+        completed_at: new Date().toISOString()
+      });
+    } else {
+      await updateTaskStatus(taskId, newStatus);
+    }
+  };
+
+  const handleUpdateColor = async (taskId: string, color: string) => {
+    await updateTask(taskId, { color });
   };
 
   return (
@@ -73,6 +85,7 @@ export const TaskBoard = () => {
             tasks={getTasksByStatus(column.id)}
             onTaskMove={handleTaskMove}
             onTaskDelete={deleteTask}
+            onUpdateColor={handleUpdateColor}
             isDoingColumn={column.id === 'doing'}
             currentTaskId={currentTask?.id}
             columnStatus={column.id}

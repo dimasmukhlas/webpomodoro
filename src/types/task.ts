@@ -6,6 +6,8 @@ export interface Task {
   status: 'todo' | 'doing' | 'done';
   position: number;
   total_time_spent: number; // in seconds
+  color?: string;
+  completed_at?: string;
   created_at: string;
   updated_at: string;
 }
