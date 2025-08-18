@@ -53,7 +53,7 @@ export const IntegratedApp = () => {
   return (
     <div className="min-h-screen p-4 transition-theme">
       {/* Overlay for better content visibility */}
-      <div className="absolute inset-0 bg-background/30 backdrop-blur-sm" />
+      <div className="absolute inset-0 bg-background/30 backdrop-blur-sm pointer-events-none" />
       
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto">
