@@ -75,6 +75,7 @@ export const TaskBoard = () => {
             onTaskDelete={deleteTask}
             isDoingColumn={column.id === 'doing'}
             currentTaskId={currentTask?.id}
+            columnStatus={column.id}
           />
         ))}
       </div>

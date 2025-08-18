@@ -46,16 +46,22 @@ export const IntegratedApp = () => {
 
   const timerHooks = user ? authenticatedTimer : guestTimer;
 
-  // Listen for theme changes from PomodoroTimer
+  // Listen for theme changes and timer events
   useEffect(() => {
     const handleThemeChange = (event: CustomEvent) => {
       setBackgroundImage(event.detail.backgroundImage);
     };
 
+    const handleSwitchToTimer = (event: CustomEvent) => {
+      setActiveTab('timer');
+    };
+
     window.addEventListener('themeChange', handleThemeChange as EventListener);
+    window.addEventListener('switchToTimer', handleSwitchToTimer as EventListener);
     
     return () => {
       window.removeEventListener('themeChange', handleThemeChange as EventListener);
+      window.removeEventListener('switchToTimer', handleSwitchToTimer as EventListener);
     };
   }, []);
 

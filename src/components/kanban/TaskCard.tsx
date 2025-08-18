@@ -1,17 +1,18 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from '@/components/ui/dropdown-menu';
 import { Task, TaskStatus } from '@/types/task';
-import { MoreHorizontal, Clock, Trash2, ArrowRight, ArrowLeft, CheckCircle } from 'lucide-react';
+import { MoreHorizontal, Clock, Trash2, ArrowRight, ArrowLeft, CheckCircle, Play, Timer } from 'lucide-react';
 
 interface TaskCardProps {
   task: Task;
   onMove: (taskId: string, newStatus: TaskStatus) => void;
   onDelete: (taskId: string) => void;
   isActive?: boolean;
+  onStartTimer?: (task: Task) => void;
 }
 
-export const TaskCard = ({ task, onMove, onDelete, isActive = false }: TaskCardProps) => {
+export const TaskCard = ({ task, onMove, onDelete, isActive = false, onStartTimer }: TaskCardProps) => {
   const formatTime = (seconds: number) => {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
@@ -29,6 +30,15 @@ export const TaskCard = ({ task, onMove, onDelete, isActive = false }: TaskCardP
     if (task.status !== 'doing') options.push({ status: 'doing', label: 'Move to Doing', icon: ArrowRight });
     if (task.status !== 'done') options.push({ status: 'done', label: 'Mark as Done', icon: CheckCircle });
     return options;
+  };
+
+  const handleStartTimer = () => {
+    // Move task to doing if not already there
+    if (task.status !== 'doing') {
+      onMove(task.id, 'doing');
+    }
+    // Switch to timer tab
+    window.dispatchEvent(new CustomEvent('switchToTimer', { detail: { task } }));
   };
 
   return (
@@ -63,6 +73,11 @@ export const TaskCard = ({ task, onMove, onDelete, isActive = false }: TaskCardP
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
+              <DropdownMenuItem onClick={handleStartTimer}>
+                <Play className="w-4 h-4 mr-2" />
+                Start Timer
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
               {getMoveOptions().map(option => (
                 <DropdownMenuItem
                   key={option.status}
@@ -72,6 +87,7 @@ export const TaskCard = ({ task, onMove, onDelete, isActive = false }: TaskCardP
                   {option.label}
                 </DropdownMenuItem>
               ))}
+              <DropdownMenuSeparator />
               <DropdownMenuItem
                 onClick={() => onDelete(task.id)}
                 className="text-destructive"
