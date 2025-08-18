@@ -1,31 +1,74 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { useTasks } from '@/hooks/useTasks';
+import { useGuestTasks } from '@/hooks/useGuestTasks';
 import { useTimer } from '@/hooks/useTimer';
-import { AuthForm } from '@/components/auth/AuthForm';
+import { useGuestTimer } from '@/hooks/useGuestTimer';
 import { TaskBoard } from '@/components/kanban/TaskBoard';
 import { PomodoroTimer } from '@/components/PomodoroTimer';
-import { Button } from '@/components/ui/button';
+import { Header } from '@/components/Header';
+import { LoginPrompt } from '@/components/LoginPrompt';
 import { Card } from '@/components/ui/card';
-import { LogOut, Timer, KanbanSquare } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 export const IntegratedApp = () => {
   const { user, loading: authLoading, signOut } = useAuth();
-  const { logTime, currentTask } = useTasks();
   const [activeTab, setActiveTab] = useState<'timer' | 'tasks'>('timer');
+  const [showLoginPrompt, setShowLoginPrompt] = useState(false);
+  const [backgroundImage, setBackgroundImage] = useState('');
   const { toast } = useToast();
 
+  // Use different hooks based on auth state
+  const authenticatedTasks = useTasks();
+  const guestTasks = useGuestTasks();
+  const taskHooks = user ? authenticatedTasks : guestTasks;
+
   // Initialize timer with task tracking
-  const timerHooks = useTimer((duration, sessionType) => {
-    if (sessionType === 'work' && currentTask) {
-      logTime(duration, sessionType);
+  const authenticatedTimer = useTimer((duration, sessionType) => {
+    if (sessionType === 'work' && taskHooks.currentTask) {
+      taskHooks.logTime(duration, sessionType);
       toast({
         title: "Session Complete!",
-        description: `${Math.floor(duration / 60)} minutes logged to "${currentTask.title}"`,
+        description: `${Math.floor(duration / 60)} minutes logged to "${taskHooks.currentTask.title}"`,
       });
     }
   });
+
+  const guestTimer = useGuestTimer((duration, sessionType) => {
+    if (sessionType === 'work' && taskHooks.currentTask) {
+      taskHooks.logTime(duration, sessionType);
+      toast({
+        title: "Session Complete!",
+        description: `${Math.floor(duration / 60)} minutes logged to "${taskHooks.currentTask.title}"`,
+      });
+    }
+  });
+
+  const timerHooks = user ? authenticatedTimer : guestTimer;
+
+  // Listen for theme changes from PomodoroTimer
+  useEffect(() => {
+    const handleThemeChange = (event: CustomEvent) => {
+      setBackgroundImage(event.detail.backgroundImage);
+    };
+
+    window.addEventListener('themeChange', handleThemeChange as EventListener);
+    
+    return () => {
+      window.removeEventListener('themeChange', handleThemeChange as EventListener);
+    };
+  }, []);
+
+  // Apply background image
+  useEffect(() => {
+    if (backgroundImage) {
+      document.body.style.backgroundImage = `url(${backgroundImage})`;
+      document.body.style.backgroundSize = 'cover';
+      document.body.style.backgroundPosition = 'center';
+      document.body.style.backgroundAttachment = 'fixed';
+      document.body.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+    }
+  }, [backgroundImage]);
 
   const handleSignOut = async () => {
     const { error } = await signOut();
@@ -35,6 +78,28 @@ export const IntegratedApp = () => {
         description: error.message,
         variant: "destructive"
       });
+    } else {
+      toast({
+        title: "Signed out",
+        description: "You're now working in guest mode",
+      });
+    }
+  };
+
+  const handleSignIn = () => {
+    setShowLoginPrompt(true);
+  };
+
+  const handleLoginSuccess = () => {
+    // Transfer guest data if exists
+    if (!user && 'exportGuestData' in guestTasks) {
+      const guestData = guestTasks.exportGuestData();
+      if (guestData.tasks.length > 0) {
+        toast({
+          title: "Data Migration",
+          description: "Your guest data will be available in your account shortly",
+        });
+      }
     }
   };
 
@@ -46,9 +111,7 @@ export const IntegratedApp = () => {
     );
   }
 
-  if (!user) {
-    return <AuthForm />;
-  }
+  // Always render the app, but show different content based on auth state
 
   return (
     <div className="min-h-screen p-4 transition-theme">
@@ -58,57 +121,30 @@ export const IntegratedApp = () => {
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto">
         {/* Header */}
-        <Card className="mb-6 backdrop-blur-sm bg-card/80 border-border/50">
-          <div className="p-4 flex items-center justify-between">
-            <div>
-              <h1 className="text-2xl font-bold text-foreground">Focus & Flow</h1>
-              <p className="text-sm text-muted-foreground">
-                Welcome back, {user.email}
-              </p>
-            </div>
-            
-            <div className="flex items-center gap-4">
-              {/* Tab Navigation */}
-              <div className="flex gap-2">
-                <Button
-                  variant={activeTab === 'timer' ? 'default' : 'outline'}
-                  size="sm"
-                  onClick={() => setActiveTab('timer')}
-                  className="flex items-center gap-2"
-                >
-                  <Timer className="w-4 h-4" />
-                  Timer
-                </Button>
-                <Button
-                  variant={activeTab === 'tasks' ? 'default' : 'outline'}
-                  size="sm"
-                  onClick={() => setActiveTab('tasks')}
-                  className="flex items-center gap-2"
-                >
-                  <KanbanSquare className="w-4 h-4" />
-                  Tasks
-                </Button>
-              </div>
-              
-              <Button variant="outline" size="sm" onClick={handleSignOut}>
-                <LogOut className="w-4 h-4 mr-2" />
-                Sign Out
-              </Button>
-            </div>
-          </div>
-        </Card>
+        <Header 
+          user={user}
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          onSignOut={handleSignOut}
+          onSignIn={handleSignIn}
+        />
 
         {/* Current Task Status */}
-        {currentTask && (
+        {taskHooks.currentTask && (
           <Card className="mb-6 p-4 backdrop-blur-sm bg-card/80 border-border/50">
             <div className="flex items-center gap-3">
               <div className="w-3 h-3 bg-primary rounded-full animate-pulse"></div>
               <div className="flex-1">
                 <span className="text-sm text-muted-foreground">Currently focusing on:</span>
-                <h3 className="font-medium text-foreground">{currentTask.title}</h3>
+                <h3 className="font-medium text-foreground">{taskHooks.currentTask.title}</h3>
+                {!user && (
+                  <p className="text-xs text-yellow-600 mt-1">
+                    ⚠️ Guest mode - data won't be saved permanently
+                  </p>
+                )}
               </div>
               <div className="text-right text-sm text-muted-foreground">
-                <div>Total time: {Math.floor(currentTask.total_time_spent / 60)}m</div>
+                <div>Total time: {Math.floor(taskHooks.currentTask.total_time_spent / 60)}m</div>
                 <div>Sessions: {timerHooks.timerState.completedSessions}</div>
               </div>
             </div>
@@ -116,7 +152,7 @@ export const IntegratedApp = () => {
         )}
 
         {/* No current task warning */}
-        {!currentTask && activeTab === 'timer' && (
+        {!taskHooks.currentTask && activeTab === 'timer' && (
           <Card className="mb-6 p-4 backdrop-blur-sm bg-card/80 border-border/50 border-yellow-500/50">
             <div className="flex items-center gap-3 text-yellow-600">
               <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
@@ -135,6 +171,14 @@ export const IntegratedApp = () => {
           <TaskBoard />
         )}
       </div>
+
+      {/* Login Prompt */}
+      <LoginPrompt
+        isOpen={showLoginPrompt}
+        onClose={() => setShowLoginPrompt(false)}
+        onLogin={handleLoginSuccess}
+        message="Sign in to save your tasks and timer progress permanently."
+      />
     </div>
   );
 };

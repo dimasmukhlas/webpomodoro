@@ -77,7 +77,7 @@ export const PomodoroTimer = ({ timerState, settings, setSettings, startTimer, p
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [currentTheme, setCurrentTheme] = useState<ThemeName>('sea');
 
-  // Apply theme styles to CSS variables
+  // Apply theme styles to CSS variables and notify parent
   useEffect(() => {
     const theme = themes[currentTheme];
     const root = document.documentElement;
@@ -87,12 +87,11 @@ export const PomodoroTimer = ({ timerState, settings, setSettings, startTimer, p
     root.style.setProperty('--background', theme.colors.background.replace('hsl(', '').replace(')', ''));
     root.style.setProperty('--card', theme.colors.card.replace('hsl(', '').replace(')', ''));
     
-    // Update background image
-    document.body.style.backgroundImage = `url(${theme.backgroundImage})`;
-    document.body.style.backgroundSize = 'cover';
-    document.body.style.backgroundPosition = 'center';
-    document.body.style.backgroundAttachment = 'fixed';
-    document.body.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+    // Notify parent about theme change for background handling
+    const event = new CustomEvent('themeChange', { 
+      detail: { theme: currentTheme, backgroundImage: theme.backgroundImage } 
+    });
+    window.dispatchEvent(event);
   }, [currentTheme]);
 
   const handleThemeChange = (theme: ThemeName) => {
@@ -109,12 +108,9 @@ export const PomodoroTimer = ({ timerState, settings, setSettings, startTimer, p
   };
 
   return (
-    <div className="min-h-screen p-4 transition-theme">
-      {/* Overlay for better content visibility */}
-      <div className="absolute inset-0 bg-background/30 backdrop-blur-sm" />
-      
+    <div className="w-full">
       {/* Content */}
-      <div className="relative z-10 max-w-4xl mx-auto">
+      <div className="max-w-4xl mx-auto">
         <div className="text-center mb-8 animate-gentle-float">
           <h1 className="text-4xl font-bold text-foreground mb-2">
             Pomodoro Focus Timer
