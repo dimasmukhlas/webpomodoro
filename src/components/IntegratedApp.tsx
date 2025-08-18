@@ -8,8 +8,8 @@ import { TaskBoard } from '@/components/kanban/TaskBoard';
 import { PomodoroTimer } from '@/components/PomodoroTimer';
 import { Header } from '@/components/Header';
 import { LoginPrompt } from '@/components/LoginPrompt';
-import { Card } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
+import { Card } from '@/components/ui/card';
 
 export const IntegratedApp = () => {
   const { user, loading: authLoading, signOut } = useAuth();
