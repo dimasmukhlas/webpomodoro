@@ -1,7 +1,7 @@
-import { PomodoroTimer } from "@/components/PomodoroTimer";
+import { IntegratedApp } from "@/components/IntegratedApp";
 
 const Index = () => {
-  return <PomodoroTimer />;
+  return <IntegratedApp />;
 };
 
 export default Index;

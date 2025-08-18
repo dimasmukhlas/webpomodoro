@@ -64,8 +64,16 @@ const themes: Record<ThemeName, Theme> = {
   },
 };
 
-export const PomodoroTimer = () => {
-  const { timerState, settings, setSettings, startTimer, pauseTimer, resetTimer } = useTimer();
+interface PomodoroTimerProps {
+  timerState: any;
+  settings: any;
+  setSettings: any;
+  startTimer: any;
+  pauseTimer: any;
+  resetTimer: any;
+}
+
+export const PomodoroTimer = ({ timerState, settings, setSettings, startTimer, pauseTimer, resetTimer }: PomodoroTimerProps) => {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [currentTheme, setCurrentTheme] = useState<ThemeName>('sea');
 

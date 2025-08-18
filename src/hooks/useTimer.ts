@@ -11,7 +11,7 @@ const defaultSettings: TimerSettings = {
   soundEnabled: true,
 };
 
-export const useTimer = () => {
+export const useTimer = (onSessionComplete?: (duration: number, sessionType: 'work' | 'break') => void) => {
   const [settings, setSettings] = useState<TimerSettings>(defaultSettings);
   const [timerState, setTimerState] = useState<TimerState>({
     timeLeft: minutesToSeconds(defaultSettings.workDuration),
@@ -23,6 +23,7 @@ export const useTimer = () => {
 
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const sessionStartTimeRef = useRef<number | null>(null);
 
   // Play notification sound
   const playNotificationSound = useCallback(() => {
@@ -51,6 +52,7 @@ export const useTimer = () => {
   // Start timer
   const startTimer = useCallback(() => {
     setTimerState(prev => ({ ...prev, isRunning: true }));
+    sessionStartTimeRef.current = Date.now();
     playNotificationSound();
   }, [playNotificationSound]);
 
@@ -73,6 +75,16 @@ export const useTimer = () => {
   // Handle timer completion
   const handleTimerComplete = useCallback(() => {
     playNotificationSound();
+    
+    // Calculate actual session duration
+    const actualDuration = sessionStartTimeRef.current 
+      ? Math.floor((Date.now() - sessionStartTimeRef.current) / 1000)
+      : minutesToSeconds(timerState.isBreak ? settings.shortBreakDuration : settings.workDuration);
+    
+    // Log the completed session
+    if (onSessionComplete) {
+      onSessionComplete(actualDuration, timerState.isBreak ? 'break' : 'work');
+    }
     
     setTimerState(prev => {
       const newCompletedSessions = prev.isBreak ? prev.completedSessions : prev.completedSessions + 1;
@@ -99,7 +111,9 @@ export const useTimer = () => {
         };
       }
     });
-  }, [settings, playNotificationSound]);
+    
+    sessionStartTimeRef.current = null;
+  }, [settings, playNotificationSound, onSessionComplete, timerState.isBreak]);
 
   // Timer countdown effect
   useEffect(() => {
