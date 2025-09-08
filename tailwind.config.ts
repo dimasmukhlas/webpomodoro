@@ -69,6 +69,15 @@ export default {
 				'gradient-woodfire': 'var(--gradient-woodfire)',
 				'gradient-lake': 'var(--gradient-lake)',
 			},
+			backdropBlur: {
+				'xs': '2px',
+				'glass': '40px',
+			},
+			boxShadow: {
+				'glass': 'var(--glass-shadow)',
+				'apple': '0 4px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)',
+				'apple-lg': '0 10px 40px -10px rgba(0, 0, 0, 0.2), 0 20px 25px -5px rgba(0, 0, 0, 0.1)',
+			},
 			transitionProperty: {
 				'theme': 'background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter',
 			},
@@ -77,8 +86,12 @@ export default {
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
-				md: 'calc(var(--radius) - 2px)',
-				sm: 'calc(var(--radius) - 4px)'
+				md: 'calc(var(--radius) - 4px)',
+				sm: 'calc(var(--radius) - 8px)',
+				xl: 'calc(var(--radius) + 4px)',
+				'2xl': 'calc(var(--radius) + 8px)',
+				'apple': '1.25rem',
+				'apple-lg': '2rem',
 			},
 			keyframes: {
 				'accordion-down': {
@@ -108,6 +121,21 @@ export default {
 				'gentle-float': {
 					'0%, 100%': { transform: 'translateY(0px)' },
 					'50%': { transform: 'translateY(-10px)' }
+				},
+				'glass-morph': {
+					'0%': { 
+						backdropFilter: 'blur(0px)',
+						background: 'rgba(255, 255, 255, 0)'
+					},
+					'100%': { 
+						backdropFilter: 'blur(40px)',
+						background: 'var(--glass-background)'
+					}
+				},
+				'bounce-subtle': {
+					'0%, 20%, 50%, 80%, 100%': { transform: 'translateY(0)' },
+					'40%': { transform: 'translateY(-4px)' },
+					'60%': { transform: 'translateY(-2px)' }
 				}
 			},
 			animation: {
@@ -115,7 +143,9 @@ export default {
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'timer-pulse': 'timer-pulse 2s ease-in-out infinite',
 				'theme-fade': 'theme-fade 0.8s ease-out',
-				'gentle-float': 'gentle-float 3s ease-in-out infinite'
+				'gentle-float': 'gentle-float 3s ease-in-out infinite',
+				'glass-morph': 'glass-morph 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+				'bounce-subtle': 'bounce-subtle 1s ease-in-out'
 			}
 		}
 	},

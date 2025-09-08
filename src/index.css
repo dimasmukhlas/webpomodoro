@@ -2,78 +2,84 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Nature-themed Pomodoro Timer Design System */
+/* Apple Transparent iOS Design System */
 
 @layer base {
   :root {
-    /* Base theme - Default/Sea */
-    --background: 210 25% 8%;
+    /* Apple-style transparent design tokens */
+    --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
 
-    --card: 210 25% 12%;
-    --card-foreground: 0 0% 95%;
+    --card: 0 0% 100% / 0.05;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 210 25% 10%;
-    --popover-foreground: 0 0% 95%;
+    --popover: 0 0% 100% / 0.1;
+    --popover-foreground: 0 0% 98%;
 
-    --primary: 195 100% 75%;
-    --primary-foreground: 210 25% 8%;
+    --primary: 221 83% 53%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 25% 16%;
-    --secondary-foreground: 0 0% 90%;
+    --secondary: 0 0% 100% / 0.08;
+    --secondary-foreground: 0 0% 98%;
 
-    --muted: 210 25% 14%;
-    --muted-foreground: 210 15% 65%;
+    --muted: 0 0% 100% / 0.05;
+    --muted-foreground: 240 5% 64.9%;
 
-    --accent: 195 100% 65%;
-    --accent-foreground: 210 25% 8%;
+    --accent: 0 0% 100% / 0.1;
+    --accent-foreground: 0 0% 98%;
 
-    --destructive: 0 75% 65%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 210 25% 20%;
-    --input: 210 25% 16%;
-    --ring: 195 100% 75%;
+    --border: 0 0% 100% / 0.12;
+    --input: 0 0% 100% / 0.08;
+    --ring: 221 83% 53%;
 
-    --radius: 1rem;
+    --radius: 1.5rem;
 
-    /* Nature theme colors */
-    --sea-primary: 195 100% 75%;
-    --sea-secondary: 200 100% 60%;
-    --sea-background: 210 25% 8%;
-    --sea-card: 210 25% 12%;
+    /* Apple iOS theme colors */
+    --sea-primary: 206 100% 50%;
+    --sea-secondary: 195 100% 75%;
+    --sea-background: 220 20% 6%;
+    --sea-card: 0 0% 100% / 0.05;
 
-    --forest-primary: 120 60% 70%;
-    --forest-secondary: 100 50% 45%;
-    --forest-background: 120 25% 8%;
-    --forest-card: 120 25% 12%;
+    --forest-primary: 142 71% 45%;
+    --forest-secondary: 120 60% 70%;
+    --forest-background: 120 20% 6%;
+    --forest-card: 0 0% 100% / 0.05;
 
-    --woodfire-primary: 25 100% 70%;
-    --woodfire-secondary: 15 90% 55%;
-    --woodfire-background: 15 25% 8%;
-    --woodfire-card: 15 25% 12%;
+    --woodfire-primary: 25 95% 53%;
+    --woodfire-secondary: 25 100% 70%;
+    --woodfire-background: 15 20% 6%;
+    --woodfire-card: 0 0% 100% / 0.05;
 
-    --lake-primary: 220 80% 75%;
-    --lake-secondary: 240 70% 60%;
-    --lake-background: 230 25% 8%;
-    --lake-card: 230 25% 12%;
+    --lake-primary: 212 100% 48%;
+    --lake-secondary: 220 80% 75%;
+    --lake-background: 230 20% 6%;
+    --lake-card: 0 0% 100% / 0.05;
 
-    /* Gradients */
-    --gradient-sea: linear-gradient(135deg, hsl(195 100% 20%), hsl(210 80% 15%));
-    --gradient-forest: linear-gradient(135deg, hsl(120 40% 20%), hsl(100 30% 15%));
-    --gradient-woodfire: linear-gradient(135deg, hsl(25 60% 25%), hsl(15 40% 15%));
-    --gradient-lake: linear-gradient(135deg, hsl(220 50% 20%), hsl(240 40% 15%));
+    /* Apple-style gradients with transparency */
+    --gradient-sea: linear-gradient(135deg, hsl(206 100% 10% / 0.8), hsl(220 20% 6% / 0.9));
+    --gradient-forest: linear-gradient(135deg, hsl(142 71% 10% / 0.8), hsl(120 20% 6% / 0.9));
+    --gradient-woodfire: linear-gradient(135deg, hsl(25 95% 10% / 0.8), hsl(15 20% 6% / 0.9));
+    --gradient-lake: linear-gradient(135deg, hsl(212 100% 10% / 0.8), hsl(230 20% 6% / 0.9));
+
+    /* Apple-style glass effects */
+    --glass-background: 0 0% 100% / 0.1;
+    --glass-border: 0 0% 100% / 0.18;
+    --glass-shadow: 0 8px 32px 0 rgb(31 38 135 / 0.37);
 
     /* Timer colors */
     --timer-progress: var(--primary);
     --timer-track: hsl(var(--muted));
     --timer-glow: hsl(var(--primary) / 0.3);
 
-    /* Animations */
-    --transition-theme: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Apple-style animations */
+    --transition-theme: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --transition-smooth: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --transition-spring: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
-    --radius: 1rem;
+    --radius: 1.5rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -138,5 +144,23 @@
 
   body {
     @apply bg-background text-foreground;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-feature-settings: 'kern' 1;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Apple-style glass morphism utilities */
+  .glass-card {
+    @apply backdrop-blur-glass bg-card/50 border border-border/20 rounded-apple shadow-apple;
+  }
+
+  .glass-button {
+    @apply backdrop-blur-glass bg-background/20 hover:bg-background/30 border border-border/40 rounded-apple shadow-apple transition-all duration-300;
+  }
+
+  .glass-input {
+    @apply backdrop-blur-glass bg-background/20 border border-border/40 rounded-apple shadow-apple;
   }
 }
