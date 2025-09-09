@@ -1,19 +1,20 @@
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { LogOut, Timer, KanbanSquare, User, LogIn } from 'lucide-react';
-import { User as SupabaseUser } from '@supabase/supabase-js';
+import { User as FirebaseUser } from 'firebase/auth';
 
+// Header component interface - defines the props needed for the header component
 interface HeaderProps {
-  user: SupabaseUser | null;
-  activeTab: 'timer' | 'tasks';
-  setActiveTab: (tab: 'timer' | 'tasks') => void;
-  onSignOut: () => void;
-  onSignIn: () => void;
+  user: FirebaseUser | null; // Firebase user object or null if not authenticated
+  activeTab: 'timer' | 'tasks'; // Current active tab in the app
+  setActiveTab: (tab: 'timer' | 'tasks') => void; // Function to change active tab
+  onSignOut: () => void; // Function to handle user sign out
+  onSignIn: () => void; // Function to handle user sign in
 }
 
 export const Header = ({ user, activeTab, setActiveTab, onSignOut, onSignIn }: HeaderProps) => {
   return (
-    <Card className="mb-4 sm:mb-6 bg-card/95 backdrop-blur-md border-border/50 shadow-lg">
+    <Card className="mb-4 sm:mb-6 bg-card border border-border shadow-sm">
       <div className="p-3 sm:p-4">
         {/* Top row - Title and Auth */}
         <div className="flex items-start justify-between mb-3 sm:mb-4">

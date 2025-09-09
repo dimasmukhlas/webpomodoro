@@ -29,6 +29,7 @@ export const useGuestTasks = () => {
   }, []);
 
   const createTask = useCallback((title: string, description?: string) => {
+    console.log('📝 Creating guest task:', title);
     const newTask: Task = {
       id: `guest-${Date.now()}`,
       title,
@@ -41,8 +42,10 @@ export const useGuestTasks = () => {
       user_id: 'guest'
     };
     
+    console.log('📊 Guest task data:', newTask);
     const newTasks = [...tasks, newTask];
     saveTasks(newTasks);
+    console.log('✅ Guest task saved to localStorage');
   }, [tasks, saveTasks]);
 
   const updateTaskStatus = useCallback((taskId: string, status: TaskStatus) => {
@@ -79,20 +82,35 @@ export const useGuestTasks = () => {
   }, [tasks, currentTask, saveTasks]);
 
   const logTime = useCallback((duration: number, sessionType: 'work' | 'break') => {
+    console.log('⏱️ Logging guest time:', { duration, sessionType, task: currentTask?.title });
+    
     if (sessionType === 'work' && currentTask) {
       const newTasks = tasks.map(task => {
         if (task.id === currentTask.id) {
-          return {
+          const updatedTask = {
             ...task,
             total_time_spent: task.total_time_spent + duration,
             updated_at: new Date().toISOString()
           };
+          console.log('📈 Updating guest task time:', { 
+            taskId: task.id, 
+            oldTime: task.total_time_spent, 
+            newTime: updatedTask.total_time_spent 
+          });
+          return updatedTask;
         }
         return task;
       });
       
       saveTasks(newTasks);
       setCurrentTask(prev => prev ? { ...prev, total_time_spent: prev.total_time_spent + duration } : null);
+      console.log('✅ Guest time logged to localStorage');
+    } else {
+      console.log('❌ Cannot log guest time:', { 
+        hasCurrentTask: !!currentTask, 
+        sessionType, 
+        isWorkSession: sessionType === 'work' 
+      });
     }
   }, [currentTask, tasks, saveTasks]);
 

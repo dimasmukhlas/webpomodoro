@@ -6,6 +6,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Label } from '@/components/ui/label';
 import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/hooks/use-toast';
+import { runFirebaseTests } from '@/utils/firebaseTest';
+import { runComprehensiveFirebaseTests } from '@/utils/firebaseConnectionTest';
 
 export const AuthForm = () => {
   const [email, setEmail] = useState('');
@@ -57,11 +59,48 @@ export const AuthForm = () => {
     setLoading(false);
   };
 
-  return (
-    <div className="min-h-screen flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-background/30 backdrop-blur-sm" />
+  // Test Firebase connection - this function helps diagnose Firebase configuration issues
+  const handleTestFirebase = async () => {
+    setLoading(true);
+    try {
+      // Run comprehensive tests first
+      const comprehensiveResults = await runComprehensiveFirebaseTests();
+      console.log('Comprehensive test results:', comprehensiveResults);
       
-      <Card className="w-full max-w-md backdrop-blur-sm bg-card/80 border-border/50 relative z-10">
+      // Then run the original tests
+      const results = await runFirebaseTests();
+      console.log('Original test results:', results);
+      
+      if (comprehensiveResults.overall && results.overall) {
+        toast({
+          title: "✅ Firebase Test Passed",
+          description: `Project: ${comprehensiveResults.configuration.projectId} | Auth: ✅ | Firestore: ✅`,
+        });
+      } else {
+        const authStatus = results.auth?.success ? '✅' : '❌';
+        const firestoreStatus = results.firestore?.success ? '✅' : '❌';
+        const initStatus = comprehensiveResults.initialization?.success ? '✅' : '❌';
+        
+        toast({
+          title: "❌ Firebase Test Failed",
+          description: `Init: ${initStatus} | Auth: ${authStatus} | Firestore: ${firestoreStatus}`,
+          variant: "destructive"
+        });
+      }
+    } catch (error: any) {
+      console.error('Firebase test error:', error);
+      toast({
+        title: "Firebase Test Error",
+        description: error.message,
+        variant: "destructive"
+      });
+    }
+    setLoading(false);
+  };
+
+  return (
+    <div className="min-h-screen flex items-center justify-center p-4 bg-background">
+      <Card className="w-full max-w-md bg-card border border-border shadow-sm">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl">Focus Timer</CardTitle>
           <CardDescription>
@@ -159,6 +198,16 @@ export const AuthForm = () => {
                 <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
               </svg>
               Sign in with Google
+            </Button>
+            
+            {/* Firebase Test Button - helps diagnose connection issues */}
+            <Button 
+              variant="secondary" 
+              onClick={handleTestFirebase}
+              className="w-full mt-2"
+              disabled={loading}
+            >
+              🔧 Test Firebase Connection
             </Button>
           </div>
         </CardContent>

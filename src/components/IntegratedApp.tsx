@@ -10,6 +10,7 @@ import { Header } from '@/components/Header';
 import { LoginPrompt } from '@/components/LoginPrompt';
 import { useToast } from '@/hooks/use-toast';
 import { Card } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 
 export const IntegratedApp = () => {
   const { user, loading: authLoading, signOut } = useAuth();
@@ -46,10 +47,15 @@ export const IntegratedApp = () => {
 
   const timerHooks = user ? authenticatedTimer : guestTimer;
 
-  // Listen for theme changes and timer events
+  // Listen for theme changes and timer events - updated for flat design
   useEffect(() => {
     const handleThemeChange = (event: CustomEvent) => {
-      setBackgroundImage(event.detail.backgroundImage);
+      // Apply flat background color instead of background image
+      const theme = event.detail.theme;
+      if (theme) {
+        document.body.className = `theme-${theme}`;
+        document.body.style.transition = 'all 0.3s ease-in-out';
+      }
     };
 
     const handleSwitchToTimer = (event: CustomEvent) => {
@@ -65,16 +71,14 @@ export const IntegratedApp = () => {
     };
   }, []);
 
-  // Apply background image
+  // Debug: Log authentication and data saving status
   useEffect(() => {
-    if (backgroundImage) {
-      document.body.style.backgroundImage = `url(${backgroundImage})`;
-      document.body.style.backgroundSize = 'cover';
-      document.body.style.backgroundPosition = 'center';
-      document.body.style.backgroundAttachment = 'fixed';
-      document.body.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
-    }
-  }, [backgroundImage]);
+    console.log('🔍 App Status Check:');
+    console.log('👤 User authenticated:', !!user);
+    console.log('📊 Current task:', taskHooks.currentTask?.title || 'None');
+    console.log('💾 Data mode:', user ? 'Firebase Database' : 'Local Storage (Guest)');
+    console.log('📝 Total tasks:', taskHooks.tasks.length);
+  }, [user, taskHooks.currentTask, taskHooks.tasks.length]);
 
   const handleSignOut = async () => {
     const { error } = await signOut();
@@ -120,12 +124,9 @@ export const IntegratedApp = () => {
   // Always render the app, but show different content based on auth state
 
   return (
-    <div className="min-h-screen p-2 sm:p-4 transition-theme">
-      {/* Overlay for better content visibility */}
-      <div className="absolute inset-0 bg-background/30 backdrop-blur-sm pointer-events-none" />
-      
+    <div className="min-h-screen p-2 sm:p-4 bg-background transition-all duration-300">
       {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         {/* Header */}
         <Header 
           user={user}
@@ -135,20 +136,42 @@ export const IntegratedApp = () => {
           onSignIn={handleSignIn}
         />
 
+        {/* Data Saving Status - Apple-style status indicator */}
+        <Card className="mb-4 sm:mb-6 p-3 sm:p-4 bg-card border border-border shadow-sm">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className={`w-2 h-2 rounded-full ${user ? 'bg-green-500' : 'bg-yellow-500'}`}></div>
+              <div>
+                <p className="text-sm font-medium text-foreground">
+                  {user ? 'Data synced to cloud' : 'Guest mode - local storage'}
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  {user ? 'Your data is saved permanently' : 'Sign in to save data permanently'}
+                </p>
+              </div>
+            </div>
+            {!user && (
+              <Button 
+                variant="outline" 
+                size="sm" 
+                onClick={handleSignIn}
+                className="text-xs"
+              >
+                Sign In
+              </Button>
+            )}
+          </div>
+        </Card>
+
         {/* Current Task Status */}
         {taskHooks.currentTask && (
-          <Card className="mb-4 sm:mb-6 p-3 sm:p-4 backdrop-blur-sm bg-card/80 border-border/50">
+          <Card className="mb-4 sm:mb-6 p-3 sm:p-4 bg-card border border-border shadow-sm">
             <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
               <div className="flex items-center gap-3 flex-1">
                 <div className="w-3 h-3 bg-primary rounded-full animate-pulse"></div>
                 <div className="flex-1 min-w-0">
                   <span className="text-sm text-muted-foreground">Currently focusing on:</span>
                   <h3 className="font-medium text-foreground truncate">{taskHooks.currentTask.title}</h3>
-                  {!user && (
-                    <p className="text-xs text-yellow-600 mt-1">
-                      ⚠️ Guest mode - data won't be saved permanently
-                    </p>
-                  )}
                 </div>
               </div>
               <div className="text-left sm:text-right text-sm text-muted-foreground flex sm:flex-col gap-4 sm:gap-0">
@@ -161,7 +184,7 @@ export const IntegratedApp = () => {
 
         {/* No current task warning */}
         {!taskHooks.currentTask && activeTab === 'timer' && (
-          <Card className="mb-4 sm:mb-6 p-3 sm:p-4 backdrop-blur-sm bg-card/80 border-border/50 border-yellow-500/50">
+          <Card className="mb-4 sm:mb-6 p-3 sm:p-4 bg-card border border-yellow-200 shadow-sm">
             <div className="flex items-start gap-3 text-yellow-600">
               <div className="w-3 h-3 bg-yellow-500 rounded-full mt-1"></div>
               <div className="flex-1 min-w-0">

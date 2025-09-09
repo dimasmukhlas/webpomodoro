@@ -24,11 +24,11 @@ export const ThemeSelector = ({ currentTheme, onThemeChange, themes }: ThemeSele
   };
 
   return (
-    <Card className="p-6 backdrop-blur-lg bg-white/10 border-white/20 shadow-2xl">
+    <Card className="p-6 bg-card border border-border shadow-sm">
       <div className="space-y-6">
         <div className="text-center">
           <h3 className="text-xl font-semibold text-foreground mb-2">Environment</h3>
-          <p className="text-sm text-foreground/70">Choose your focus atmosphere</p>
+          <p className="text-sm text-muted-foreground">Choose your focus atmosphere</p>
         </div>
         
         <div className="space-y-3">
@@ -37,20 +37,20 @@ export const ThemeSelector = ({ currentTheme, onThemeChange, themes }: ThemeSele
               key={key}
               onClick={() => onThemeChange(key as ThemeName)}
               className={`
-                w-full p-4 rounded-xl backdrop-blur-md transition-all duration-300 
-                border border-white/20 group hover:scale-105 hover:bg-white/20
+                w-full p-4 rounded-lg transition-all duration-200 
+                border group hover:scale-[1.02] hover:shadow-sm
                 ${currentTheme === key 
-                  ? 'bg-white/25 border-white/40 shadow-lg shadow-primary/20' 
-                  : 'bg-white/10 hover:bg-white/15'
+                  ? 'bg-primary/10 border-primary/30 shadow-sm' 
+                  : 'bg-background border-border hover:bg-muted'
                 }
               `}
             >
               <div className="flex items-center space-x-4">
                 <div className={`
-                  p-3 rounded-lg backdrop-blur-sm transition-colors duration-300
+                  p-3 rounded-lg transition-colors duration-200
                   ${currentTheme === key 
                     ? 'bg-primary/20 text-primary border border-primary/30' 
-                    : 'bg-white/10 text-foreground/80 group-hover:bg-white/20'
+                    : 'bg-muted text-muted-foreground group-hover:bg-muted/80'
                   }
                 `}>
                   {getThemeIcon(key as ThemeName)}
@@ -58,12 +58,12 @@ export const ThemeSelector = ({ currentTheme, onThemeChange, themes }: ThemeSele
                 
                 <div className="flex-1 text-left">
                   <h4 className={`
-                    font-medium transition-colors duration-300
-                    ${currentTheme === key ? 'text-foreground' : 'text-foreground/80'}
+                    font-medium transition-colors duration-200
+                    ${currentTheme === key ? 'text-foreground' : 'text-muted-foreground'}
                   `}>
                     {theme.displayName}
                   </h4>
-                  <p className="text-xs text-foreground/60 mt-1">
+                  <p className="text-xs text-muted-foreground mt-1">
                     {key === 'sea' && 'Calming ocean waves'}
                     {key === 'forest' && 'Peaceful woodland'}
                     {key === 'woodfire' && 'Cozy warmth'}

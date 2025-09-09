@@ -6,68 +6,68 @@
 
 @layer base {
   :root {
-    /* Apple-style transparent design tokens */
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
+    /* Apple iOS 18 Design System - Flat Pastel Colors */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 9%;
 
-    --card: 0 0% 100% / 0.05;
-    --card-foreground: 0 0% 98%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 9%;
 
-    --popover: 0 0% 100% / 0.1;
-    --popover-foreground: 0 0% 98%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 9%;
 
-    --primary: 221 83% 53%;
+    --primary: 262 83% 58%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 0 0% 100% / 0.08;
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 9%;
 
-    --muted: 0 0% 100% / 0.05;
-    --muted-foreground: 240 5% 64.9%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
 
-    --accent: 0 0% 100% / 0.1;
-    --accent-foreground: 0 0% 98%;
+    --accent: 0 0% 96%;
+    --accent-foreground: 0 0% 9%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 0 0% 100% / 0.12;
-    --input: 0 0% 100% / 0.08;
-    --ring: 221 83% 53%;
+    --border: 0 0% 90%;
+    --input: 0 0% 96%;
+    --ring: 262 83% 58%;
 
-    --radius: 1.5rem;
+    --radius: 1rem;
 
-    /* Apple iOS theme colors - Soft Pastels */
-    --sea-primary: 206 85% 65%;
-    --sea-secondary: 195 80% 85%;
-    --sea-background: 220 25% 92%;
-    --sea-card: 206 40% 98% / 0.15;
+    /* Apple iOS 18 Pastel Theme Colors - Flat Design */
+    --sea-primary: 200 100% 85%;
+    --sea-secondary: 200 50% 95%;
+    --sea-background: 200 30% 98%;
+    --sea-card: 200 20% 100%;
 
-    --forest-primary: 142 60% 70%;
-    --forest-secondary: 120 55% 85%;
-    --forest-background: 120 25% 92%;
-    --forest-card: 142 30% 98% / 0.15;
+    --forest-primary: 120 60% 80%;
+    --forest-secondary: 120 30% 95%;
+    --forest-background: 120 20% 98%;
+    --forest-card: 120 15% 100%;
 
-    --woodfire-primary: 25 80% 75%;
-    --woodfire-secondary: 25 70% 85%;
-    --woodfire-background: 15 25% 92%;
-    --woodfire-card: 25 40% 98% / 0.15;
+    --woodfire-primary: 30 80% 85%;
+    --woodfire-secondary: 30 40% 95%;
+    --woodfire-background: 30 25% 98%;
+    --woodfire-card: 30 15% 100%;
 
-    --lake-primary: 212 75% 70%;
-    --lake-secondary: 220 60% 85%;
-    --lake-background: 230 25% 92%;
-    --lake-card: 212 35% 98% / 0.15;
+    --lake-primary: 220 70% 80%;
+    --lake-secondary: 220 35% 95%;
+    --lake-background: 220 25% 98%;
+    --lake-card: 220 15% 100%;
 
-    /* Apple-style gradients with soft pastels */
-    --gradient-sea: linear-gradient(135deg, hsl(206 60% 85% / 0.3), hsl(220 40% 90% / 0.4));
-    --gradient-forest: linear-gradient(135deg, hsl(142 50% 85% / 0.3), hsl(120 40% 90% / 0.4));
-    --gradient-woodfire: linear-gradient(135deg, hsl(25 60% 85% / 0.3), hsl(15 40% 90% / 0.4));
-    --gradient-lake: linear-gradient(135deg, hsl(212 60% 85% / 0.3), hsl(230 40% 90% / 0.4));
+    /* Apple iOS 18 Flat Gradients */
+    --gradient-sea: linear-gradient(135deg, hsl(200 30% 98%), hsl(200 40% 96%));
+    --gradient-forest: linear-gradient(135deg, hsl(120 20% 98%), hsl(120 30% 96%));
+    --gradient-woodfire: linear-gradient(135deg, hsl(30 25% 98%), hsl(30 35% 96%));
+    --gradient-lake: linear-gradient(135deg, hsl(220 25% 98%), hsl(220 35% 96%));
 
-    /* Apple-style glass effects */
-    --glass-background: 0 0% 100% / 0.1;
-    --glass-border: 0 0% 100% / 0.18;
-    --glass-shadow: 0 8px 32px 0 rgb(31 38 135 / 0.37);
+    /* Apple iOS 18 Subtle Shadows */
+    --glass-background: 0 0% 100%;
+    --glass-border: 0 0% 90%;
+    --glass-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
 
     /* Timer colors */
     --timer-progress: var(--primary);
@@ -99,41 +99,42 @@
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    /* Apple iOS 18 Dark Mode - Flat Design */
+    --background: 0 0% 8%;
+    --foreground: 0 0% 95%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 0 0% 10%;
+    --card-foreground: 0 0% 95%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 95%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 262 83% 70%;
+    --primary-foreground: 0 0% 8%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 95%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 65%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 0 0% 15%;
+    --accent-foreground: 0 0% 95%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 50%;
+    --destructive-foreground: 0 0% 95%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --border: 0 0% 20%;
+    --input: 0 0% 15%;
+    --ring: 262 83% 70%;
+    --sidebar-background: 0 0% 8%;
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 262 83% 70%;
+    --sidebar-primary-foreground: 0 0% 8%;
+    --sidebar-accent: 0 0% 15%;
+    --sidebar-accent-foreground: 0 0% 95%;
+    --sidebar-border: 0 0% 20%;
+    --sidebar-ring: 262 83% 70%;
   }
 }
 
@@ -151,16 +152,50 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Apple-style glass morphism utilities */
+  /* Apple iOS 18 Flat Design Utilities */
   .glass-card {
-    @apply backdrop-blur-glass bg-card/50 border border-border/20 rounded-apple shadow-apple;
+    @apply bg-card border border-border rounded-lg shadow-sm;
   }
 
   .glass-button {
-    @apply backdrop-blur-glass bg-background/20 hover:bg-background/30 border border-border/40 rounded-apple shadow-apple transition-all duration-300;
+    @apply bg-background hover:bg-muted border border-border rounded-lg shadow-sm transition-all duration-200;
   }
 
   .glass-input {
-    @apply backdrop-blur-glass bg-background/20 border border-border/40 rounded-apple shadow-apple;
+    @apply bg-background border border-border rounded-lg shadow-sm;
+  }
+
+  /* Theme Background Classes - Flat Pastel Colors */
+  .theme-sea {
+    background: hsl(200 30% 98%);
+  }
+
+  .theme-forest {
+    background: hsl(120 20% 98%);
+  }
+
+  .theme-woodfire {
+    background: hsl(30 25% 98%);
+  }
+
+  .theme-lake {
+    background: hsl(220 25% 98%);
+  }
+
+  /* Dark mode theme backgrounds */
+  .dark .theme-sea {
+    background: hsl(200 20% 8%);
+  }
+
+  .dark .theme-forest {
+    background: hsl(120 15% 8%);
+  }
+
+  .dark .theme-woodfire {
+    background: hsl(30 20% 8%);
+  }
+
+  .dark .theme-lake {
+    background: hsl(220 20% 8%);
   }
 }
