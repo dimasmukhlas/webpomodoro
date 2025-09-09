@@ -51,24 +51,26 @@ export const TaskBoard = () => {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-2xl font-bold text-foreground">Task Board</h2>
-          <p className="text-muted-foreground">Organize your work with a simple kanban board</p>
+    <div className="space-y-4 sm:space-y-6 w-full">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
+        <div className="min-w-0">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">Task Board</h2>
+          <p className="text-sm text-muted-foreground">Organize your work with a simple kanban board</p>
         </div>
-        <Button onClick={() => setShowTaskForm(true)}>
+        <Button onClick={() => setShowTaskForm(true)} className="w-full sm:w-auto">
           <Plus className="w-4 h-4 mr-2" />
           Add Task
         </Button>
       </div>
 
       {currentTask && (
-        <Card className="p-4 backdrop-blur-sm bg-card/80 border-border/50">
-          <div className="flex items-center gap-2">
-            <div className="w-3 h-3 bg-primary rounded-full animate-pulse"></div>
-            <span className="text-sm text-muted-foreground">Currently focusing on:</span>
-            <span className="font-medium text-foreground">{currentTask.title}</span>
+        <Card className="p-3 sm:p-4 backdrop-blur-sm bg-card/80 border-border/50">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+            <div className="flex items-center gap-2 min-w-0">
+              <div className="w-3 h-3 bg-primary rounded-full animate-pulse flex-shrink-0"></div>
+              <span className="text-sm text-muted-foreground">Currently focusing on:</span>
+            </div>
+            <span className="font-medium text-foreground truncate">{currentTask.title}</span>
             <span className="text-xs text-muted-foreground">
               ({Math.floor(currentTask.total_time_spent / 60)}m tracked)
             </span>
@@ -76,7 +78,7 @@ export const TaskBoard = () => {
         </Card>
       )}
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 w-full">
         {columns.map(column => (
           <TaskColumn
             key={column.id}

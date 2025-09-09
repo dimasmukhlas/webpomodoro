@@ -37,32 +37,32 @@
 
     --radius: 1.5rem;
 
-    /* Apple iOS theme colors */
-    --sea-primary: 206 100% 50%;
-    --sea-secondary: 195 100% 75%;
-    --sea-background: 220 20% 6%;
-    --sea-card: 0 0% 100% / 0.05;
+    /* Apple iOS theme colors - Soft Pastels */
+    --sea-primary: 206 85% 65%;
+    --sea-secondary: 195 80% 85%;
+    --sea-background: 220 25% 92%;
+    --sea-card: 206 40% 98% / 0.15;
 
-    --forest-primary: 142 71% 45%;
-    --forest-secondary: 120 60% 70%;
-    --forest-background: 120 20% 6%;
-    --forest-card: 0 0% 100% / 0.05;
+    --forest-primary: 142 60% 70%;
+    --forest-secondary: 120 55% 85%;
+    --forest-background: 120 25% 92%;
+    --forest-card: 142 30% 98% / 0.15;
 
-    --woodfire-primary: 25 95% 53%;
-    --woodfire-secondary: 25 100% 70%;
-    --woodfire-background: 15 20% 6%;
-    --woodfire-card: 0 0% 100% / 0.05;
+    --woodfire-primary: 25 80% 75%;
+    --woodfire-secondary: 25 70% 85%;
+    --woodfire-background: 15 25% 92%;
+    --woodfire-card: 25 40% 98% / 0.15;
 
-    --lake-primary: 212 100% 48%;
-    --lake-secondary: 220 80% 75%;
-    --lake-background: 230 20% 6%;
-    --lake-card: 0 0% 100% / 0.05;
+    --lake-primary: 212 75% 70%;
+    --lake-secondary: 220 60% 85%;
+    --lake-background: 230 25% 92%;
+    --lake-card: 212 35% 98% / 0.15;
 
-    /* Apple-style gradients with transparency */
-    --gradient-sea: linear-gradient(135deg, hsl(206 100% 10% / 0.8), hsl(220 20% 6% / 0.9));
-    --gradient-forest: linear-gradient(135deg, hsl(142 71% 10% / 0.8), hsl(120 20% 6% / 0.9));
-    --gradient-woodfire: linear-gradient(135deg, hsl(25 95% 10% / 0.8), hsl(15 20% 6% / 0.9));
-    --gradient-lake: linear-gradient(135deg, hsl(212 100% 10% / 0.8), hsl(230 20% 6% / 0.9));
+    /* Apple-style gradients with soft pastels */
+    --gradient-sea: linear-gradient(135deg, hsl(206 60% 85% / 0.3), hsl(220 40% 90% / 0.4));
+    --gradient-forest: linear-gradient(135deg, hsl(142 50% 85% / 0.3), hsl(120 40% 90% / 0.4));
+    --gradient-woodfire: linear-gradient(135deg, hsl(25 60% 85% / 0.3), hsl(15 40% 90% / 0.4));
+    --gradient-lake: linear-gradient(135deg, hsl(212 60% 85% / 0.3), hsl(230 40% 90% / 0.4));
 
     /* Apple-style glass effects */
     --glass-background: 0 0% 100% / 0.1;

@@ -120,7 +120,7 @@ export const IntegratedApp = () => {
   // Always render the app, but show different content based on auth state
 
   return (
-    <div className="min-h-screen p-4 transition-theme">
+    <div className="min-h-screen p-2 sm:p-4 transition-theme">
       {/* Overlay for better content visibility */}
       <div className="absolute inset-0 bg-background/30 backdrop-blur-sm pointer-events-none" />
       
@@ -137,19 +137,21 @@ export const IntegratedApp = () => {
 
         {/* Current Task Status */}
         {taskHooks.currentTask && (
-          <Card className="mb-6 p-4 backdrop-blur-sm bg-card/80 border-border/50">
-            <div className="flex items-center gap-3">
-              <div className="w-3 h-3 bg-primary rounded-full animate-pulse"></div>
-              <div className="flex-1">
-                <span className="text-sm text-muted-foreground">Currently focusing on:</span>
-                <h3 className="font-medium text-foreground">{taskHooks.currentTask.title}</h3>
-                {!user && (
-                  <p className="text-xs text-yellow-600 mt-1">
-                    ⚠️ Guest mode - data won't be saved permanently
-                  </p>
-                )}
+          <Card className="mb-4 sm:mb-6 p-3 sm:p-4 backdrop-blur-sm bg-card/80 border-border/50">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+              <div className="flex items-center gap-3 flex-1">
+                <div className="w-3 h-3 bg-primary rounded-full animate-pulse"></div>
+                <div className="flex-1 min-w-0">
+                  <span className="text-sm text-muted-foreground">Currently focusing on:</span>
+                  <h3 className="font-medium text-foreground truncate">{taskHooks.currentTask.title}</h3>
+                  {!user && (
+                    <p className="text-xs text-yellow-600 mt-1">
+                      ⚠️ Guest mode - data won't be saved permanently
+                    </p>
+                  )}
+                </div>
               </div>
-              <div className="text-right text-sm text-muted-foreground">
+              <div className="text-left sm:text-right text-sm text-muted-foreground flex sm:flex-col gap-4 sm:gap-0">
                 <div>Total time: {Math.floor(taskHooks.currentTask.total_time_spent / 60)}m</div>
                 <div>Sessions: {timerHooks.timerState.completedSessions}</div>
               </div>
@@ -159,10 +161,10 @@ export const IntegratedApp = () => {
 
         {/* No current task warning */}
         {!taskHooks.currentTask && activeTab === 'timer' && (
-          <Card className="mb-6 p-4 backdrop-blur-sm bg-card/80 border-border/50 border-yellow-500/50">
-            <div className="flex items-center gap-3 text-yellow-600">
-              <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-              <div>
+          <Card className="mb-4 sm:mb-6 p-3 sm:p-4 backdrop-blur-sm bg-card/80 border-border/50 border-yellow-500/50">
+            <div className="flex items-start gap-3 text-yellow-600">
+              <div className="w-3 h-3 bg-yellow-500 rounded-full mt-1"></div>
+              <div className="flex-1 min-w-0">
                 <p className="font-medium">No active task selected</p>
                 <p className="text-sm">Go to Tasks tab and move a task to "Doing" to track time</p>
               </div>
@@ -171,11 +173,13 @@ export const IntegratedApp = () => {
         )}
 
         {/* Main Content */}
-        {activeTab === 'timer' ? (
-          <PomodoroTimer {...timerHooks} />
-        ) : (
-          <TaskBoard />
-        )}
+        <div className="w-full overflow-hidden">
+          {activeTab === 'timer' ? (
+            <PomodoroTimer {...timerHooks} />
+          ) : (
+            <TaskBoard />
+          )}
+        </div>
       </div>
 
       {/* Login Prompt */}
