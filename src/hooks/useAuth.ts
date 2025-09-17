@@ -17,6 +17,7 @@ export const useAuth = () => {
   useEffect(() => {
     // Set up auth state listener
     const unsubscribe = onAuthStateChanged(auth, (user) => {
+      console.log('🔐 Firebase Auth State Changed:', user ? `User: ${user.uid}` : 'No user');
       setUser(user);
       setLoading(false);
     });

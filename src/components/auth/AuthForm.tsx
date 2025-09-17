@@ -8,12 +8,13 @@ import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/hooks/use-toast';
 import { runFirebaseTests } from '@/utils/firebaseTest';
 import { runComprehensiveFirebaseTests } from '@/utils/firebaseConnectionTest';
+import { runSupabaseTests } from '@/utils/supabaseTest';
 
 export const AuthForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const { signIn, signUp, signInWithGoogle } = useAuth();
+  const { signIn, signUp, signInWithGoogle, user } = useAuth();
   const { toast } = useToast();
 
   const handleEmailAuth = async (mode: 'signin' | 'signup') => {
@@ -91,6 +92,40 @@ export const AuthForm = () => {
       console.error('Firebase test error:', error);
       toast({
         title: "Firebase Test Error",
+        description: error.message,
+        variant: "destructive"
+      });
+    }
+    setLoading(false);
+  };
+
+  // Test Supabase connection - this function helps diagnose Supabase configuration issues
+  const handleTestSupabase = async () => {
+    setLoading(true);
+    try {
+      const results = await runSupabaseTests(user?.uid);
+      console.log('Supabase test results:', results);
+      
+      if (results.overall) {
+        toast({
+          title: "✅ Supabase Test Passed",
+          description: `Connection: ✅ | Auth: ✅ | Tasks: ${results.tasks.success ? '✅' : '❌'}`,
+        });
+      } else {
+        const connectionStatus = results.connection.success ? '✅' : '❌';
+        const authStatus = results.auth.success ? '✅' : '❌';
+        const taskStatus = results.tasks.success ? '✅' : '❌';
+        
+        toast({
+          title: "❌ Supabase Test Failed",
+          description: `Connection: ${connectionStatus} | Auth: ${authStatus} | Tasks: ${taskStatus}`,
+          variant: "destructive"
+        });
+      }
+    } catch (error: any) {
+      console.error('Supabase test error:', error);
+      toast({
+        title: "Supabase Test Error",
         description: error.message,
         variant: "destructive"
       });
@@ -208,6 +243,16 @@ export const AuthForm = () => {
               disabled={loading}
             >
               🔧 Test Firebase Connection
+            </Button>
+            
+            {/* Supabase Test Button - helps diagnose database connection issues */}
+            <Button 
+              variant="secondary" 
+              onClick={handleTestSupabase}
+              className="w-full mt-2"
+              disabled={loading}
+            >
+              🗄️ Test Supabase Connection
             </Button>
           </div>
         </CardContent>

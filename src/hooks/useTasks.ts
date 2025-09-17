@@ -28,6 +28,8 @@ export const useTasks = () => {
       }
 
       const tasks = tasksData || [];
+      console.log('📊 Loaded tasks from Supabase:', tasks);
+      console.log('👤 User ID:', user.uid);
       setTasks(tasks);
       
       // Set current task to the first "doing" task
@@ -91,7 +93,7 @@ export const useTasks = () => {
       Object.keys(updates).forEach(key => {
         if (key === 'userId') {
           supabaseUpdates.user_id = updates[key];
-        } else if (key === 'totalTimeSpent') {
+        } else if (key === 'total_time_spent') {
           supabaseUpdates.total_time_spent = updates[key];
         } else if (key === 'createdAt') {
           supabaseUpdates.created_at = updates[key];
@@ -205,10 +207,10 @@ export const useTasks = () => {
 
       // If it's a work session, update the task's total time spent
       if (sessionType === 'work') {
-        const newTotalTime = currentTask.totalTimeSpent + duration;
+        const newTotalTime = currentTask.total_time_spent + duration;
         console.log('📈 Updating task time:', { 
           taskId: currentTask.id, 
-          oldTime: currentTask.totalTimeSpent, 
+          oldTime: currentTask.total_time_spent, 
           newTime: newTotalTime 
         });
         
