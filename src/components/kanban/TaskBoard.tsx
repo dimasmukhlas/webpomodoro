@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { TaskColumn } from './TaskColumn';
+import { GroupedDoneColumn } from './GroupedDoneColumn';
 import { TaskForm } from './TaskForm';
 import { Task, TaskStatus } from '@/types/task';
 import { useTasks } from '@/hooks/useTasks';
@@ -79,20 +80,37 @@ export const TaskBoard = () => {
       )}
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 w-full">
-        {columns.map(column => (
-          <TaskColumn
-            key={column.id}
-            title={column.title}
-            description={column.description}
-            tasks={getTasksByStatus(column.id)}
-            onTaskMove={handleTaskMove}
-            onTaskDelete={deleteTask}
-            onUpdateColor={handleUpdateColor}
-            isDoingColumn={column.id === 'doing'}
-            currentTaskId={currentTask?.id}
-            columnStatus={column.id}
-          />
-        ))}
+        {columns.map(column => {
+          if (column.id === 'done') {
+            return (
+              <GroupedDoneColumn
+                key={column.id}
+                title={column.title}
+                description={column.description}
+                tasks={getTasksByStatus(column.id)}
+                onTaskMove={handleTaskMove}
+                onTaskDelete={deleteTask}
+                onUpdateColor={handleUpdateColor}
+                currentTaskId={currentTask?.id}
+              />
+            );
+          }
+          
+          return (
+            <TaskColumn
+              key={column.id}
+              title={column.title}
+              description={column.description}
+              tasks={getTasksByStatus(column.id)}
+              onTaskMove={handleTaskMove}
+              onTaskDelete={deleteTask}
+              onUpdateColor={handleUpdateColor}
+              isDoingColumn={column.id === 'doing'}
+              currentTaskId={currentTask?.id}
+              columnStatus={column.id}
+            />
+          );
+        })}
       </div>
 
       <TaskForm
