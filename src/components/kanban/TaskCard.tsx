@@ -83,35 +83,20 @@ export const TaskCard = ({ task, onMove, onDelete, onUpdateColor, isActive = fal
       draggable
       onDragStart={handleDragStart}
     >
-      <CardContent className="p-3 relative">
-        {task.status === 'done' && task.completed_at && (
-          <div className="absolute top-2 right-2 text-xs text-muted-foreground">
-            <div>✓ {formatDate(task.completed_at)}</div>
-            {calculateCompletionTime() && (
-              <div className="text-right">took {calculateCompletionTime()}</div>
-            )}
-          </div>
-        )}
-        
-        <div className="flex items-start justify-between">
-          <div className="flex-1 pr-16">
+      <CardContent className="p-3">
+        <div className="flex items-start justify-between mb-2">
+          <div className="flex-1 pr-2">
             <h4 className="font-medium text-sm text-foreground">{task.title}</h4>
             {task.description && (
               <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
                 {task.description}
               </p>
             )}
-            {task.total_time_spent > 0 && (
-              <div className="flex items-center gap-1 mt-2 text-xs text-muted-foreground">
-                <Clock className="w-3 h-3" />
-                <span>{formatTime(task.total_time_spent)}</span>
-              </div>
-            )}
           </div>
           
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="sm" className="h-6 w-6 p-0">
+              <Button variant="ghost" size="sm" className="h-6 w-6 p-0 flex-shrink-0">
                 <MoreHorizontal className="w-3 h-3" />
               </Button>
             </DropdownMenuTrigger>
@@ -169,6 +154,30 @@ export const TaskCard = ({ task, onMove, onDelete, onUpdateColor, isActive = fal
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+        </div>
+        
+        {/* Task metadata section */}
+        <div className="space-y-1">
+          {task.total_time_spent > 0 && (
+            <div className="flex items-center gap-1 text-xs text-muted-foreground">
+              <Clock className="w-3 h-3" />
+              <span>{formatTime(task.total_time_spent)}</span>
+            </div>
+          )}
+          
+          {task.status === 'done' && task.completed_at && (
+            <div className="text-xs text-muted-foreground">
+              <div className="flex items-center gap-1">
+                <CheckCircle className="w-3 h-3 text-green-500" />
+                <span>Completed {formatDate(task.completed_at)}</span>
+              </div>
+              {calculateCompletionTime() && (
+                <div className="text-xs text-muted-foreground ml-4">
+                  took {calculateCompletionTime()}
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </CardContent>
     </Card>
