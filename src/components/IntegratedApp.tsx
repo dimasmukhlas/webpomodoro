@@ -14,7 +14,7 @@ import { Button } from '@/components/ui/button';
 
 export const IntegratedApp = () => {
   const { user, loading: authLoading, signOut } = useAuth();
-  const [activeTab, setActiveTab] = useState<'timer' | 'tasks'>('timer');
+  const [activeTab, setActiveTab] = useState<'timer' | 'tasks'>('tasks');
   const [showLoginPrompt, setShowLoginPrompt] = useState(false);
   const [backgroundImage, setBackgroundImage] = useState('');
   const { toast } = useToast();
