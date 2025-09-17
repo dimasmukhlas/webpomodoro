@@ -34,3 +34,4 @@ export const COLLECTIONS = {
   TIME_LOGS: 'timeLogs',
   USERS: 'users'
 } as const;
+

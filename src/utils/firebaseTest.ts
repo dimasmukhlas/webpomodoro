@@ -54,3 +54,4 @@ export const runFirebaseTests = async () => {
     overall: authTest.success && firestoreTest.success
   };
 };
+

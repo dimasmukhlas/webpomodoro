@@ -75,3 +75,4 @@ export const runComprehensiveFirebaseTests = async () => {
     overall: initTest.success && configTest.success
   };
 };
+
