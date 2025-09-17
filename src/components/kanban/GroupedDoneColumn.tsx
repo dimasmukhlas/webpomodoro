@@ -162,7 +162,7 @@ export const GroupedDoneColumn = ({
 
   return (
     <Card 
-      className="backdrop-blur-sm bg-card/80 border-green-200 dark:border-green-800 h-fit transition-all group"
+      className="blocky-card border-green-200 dark:border-green-800 h-fit transition-all group"
       onDragOver={handleDragOver}
       onDrop={handleDrop}
       onMouseEnter={() => setIsHovered(true)}
@@ -171,7 +171,7 @@ export const GroupedDoneColumn = ({
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
           <div>
-            <CardTitle className="text-lg flex items-center gap-2 text-green-700 dark:text-green-300">
+            <CardTitle className="text-lg flex items-center gap-2 text-green-700 dark:text-green-300 pixel-font">
               <div className="w-2 h-2 bg-green-500 rounded-full"></div>
               <Calendar className="w-4 h-4" />
               {title}

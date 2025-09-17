@@ -102,7 +102,7 @@ export const TaskColumn = ({
 
   return (
     <Card 
-      className="backdrop-blur-sm bg-card/80 border-border/50 h-fit transition-all group"
+      className="blocky-card h-fit transition-all group"
       onDragOver={handleDragOver}
       onDrop={handleDrop}
       onMouseEnter={() => setIsHovered(true)}
@@ -111,7 +111,7 @@ export const TaskColumn = ({
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
           <div>
-            <CardTitle className="text-lg">{title}</CardTitle>
+            <CardTitle className="text-lg pixel-font">{title}</CardTitle>
             <CardDescription>{description}</CardDescription>
           </div>
           <div className="flex items-center gap-2">

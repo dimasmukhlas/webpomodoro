@@ -55,7 +55,7 @@ export const TaskBoard = () => {
     <div className="space-y-4 sm:space-y-6 w-full">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
         <div className="min-w-0">
-          <h2 className="text-xl sm:text-2xl font-bold text-foreground">Task Board</h2>
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground pixel-font">Task Board</h2>
           <p className="text-sm text-muted-foreground">Organize your work with a simple kanban board</p>
         </div>
         <Button onClick={() => setShowTaskForm(true)} className="w-full sm:w-auto">

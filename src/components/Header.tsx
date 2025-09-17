@@ -14,12 +14,12 @@ interface HeaderProps {
 
 export const Header = ({ user, activeTab, setActiveTab, onSignOut, onSignIn }: HeaderProps) => {
   return (
-    <Card className="mb-4 sm:mb-6 bg-card border border-border shadow-sm">
+    <Card className="mb-4 sm:mb-6 blocky-card">
       <div className="p-3 sm:p-4">
         {/* Top row - Title and Auth */}
         <div className="flex items-start justify-between mb-3 sm:mb-4">
           <div className="flex-1 min-w-0">
-            <h1 className="text-xl sm:text-2xl font-bold text-foreground">Focus & Flow</h1>
+            <h1 className="text-xl sm:text-2xl font-bold text-foreground pixel-font">Focus & Flow</h1>
             <p className="text-xs sm:text-sm text-muted-foreground truncate">
               {user ? `Welcome back, ${user.email}` : 'Working in guest mode'}
             </p>
@@ -49,7 +49,7 @@ export const Header = ({ user, activeTab, setActiveTab, onSignOut, onSignIn }: H
               variant={activeTab === 'timer' ? 'default' : 'outline'}
               size="sm"
               onClick={() => setActiveTab('timer')}
-              className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm px-2 sm:px-3"
+              className="blocky-button flex items-center gap-1 sm:gap-2 text-xs sm:text-sm px-2 sm:px-3"
             >
               <Timer className="w-3 h-3 sm:w-4 sm:h-4" />
               Timer
@@ -58,7 +58,7 @@ export const Header = ({ user, activeTab, setActiveTab, onSignOut, onSignIn }: H
               variant={activeTab === 'tasks' ? 'default' : 'outline'}
               size="sm"
               onClick={() => setActiveTab('tasks')}
-              className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm px-2 sm:px-3"
+              className="blocky-button flex items-center gap-1 sm:gap-2 text-xs sm:text-sm px-2 sm:px-3"
             >
               <KanbanSquare className="w-3 h-3 sm:w-4 sm:h-4" />
               Tasks

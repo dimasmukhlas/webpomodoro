@@ -74,7 +74,7 @@ export const TaskCard = ({ task, onMove, onDelete, onUpdateColor, isActive = fal
 
   return (
     <Card 
-      className={`cursor-move transition-all hover:scale-105 ${
+      className={`blocky-card cursor-move transition-all hover:scale-105 ${
         isActive ? 'ring-2 ring-primary shadow-lg' : ''
       }`}
       style={{

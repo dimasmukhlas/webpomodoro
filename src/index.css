@@ -2,11 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Apple Transparent iOS Design System */
+/* Minecraft + Apple Design System */
 
 @layer base {
   :root {
-    /* Apple iOS 18 Design System - Flat Pastel Colors */
+    /* Minecraft + Apple Color Palette */
     --background: 0 0% 100%;
     --foreground: 0 0% 9%;
 
@@ -16,7 +16,8 @@
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 9%;
 
-    --primary: 262 83% 58%;
+    /* Minecraft-inspired primary colors */
+    --primary: 120 100% 25%; /* Minecraft grass green */
     --primary-foreground: 0 0% 100%;
 
     --secondary: 0 0% 96%;
@@ -33,28 +34,29 @@
 
     --border: 0 0% 90%;
     --input: 0 0% 96%;
-    --ring: 262 83% 58%;
+    --ring: 120 100% 25%;
 
-    --radius: 1rem;
+    /* Minecraft-inspired radius (more blocky) */
+    --radius: 0.5rem;
 
-    /* Apple iOS 18 Pastel Theme Colors - Flat Design */
-    --sea-primary: 200 100% 85%;
-    --sea-secondary: 200 50% 95%;
+    /* Minecraft + Apple Theme Colors */
+    --sea-primary: 200 100% 60%; /* Minecraft water blue */
+    --sea-secondary: 200 50% 90%;
     --sea-background: 200 30% 98%;
     --sea-card: 200 20% 100%;
 
-    --forest-primary: 120 60% 80%;
-    --forest-secondary: 120 30% 95%;
+    --forest-primary: 120 100% 25%; /* Minecraft grass green */
+    --forest-secondary: 120 30% 90%;
     --forest-background: 120 20% 98%;
     --forest-card: 120 15% 100%;
 
-    --woodfire-primary: 30 80% 85%;
-    --woodfire-secondary: 30 40% 95%;
+    --woodfire-primary: 30 100% 40%; /* Minecraft wood brown */
+    --woodfire-secondary: 30 40% 90%;
     --woodfire-background: 30 25% 98%;
     --woodfire-card: 30 15% 100%;
 
-    --lake-primary: 220 70% 80%;
-    --lake-secondary: 220 35% 95%;
+    --lake-primary: 220 100% 50%; /* Minecraft lapis blue */
+    --lake-secondary: 220 35% 90%;
     --lake-background: 220 25% 98%;
     --lake-card: 220 15% 100%;
 
@@ -152,7 +154,14 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Apple iOS 18 Flat Design Utilities */
+  /* Minecraft-inspired pixelated font for special elements */
+  .pixel-font {
+    font-family: 'Courier New', 'Monaco', 'Menlo', monospace;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+  }
+
+  /* Minecraft + Apple Design Utilities */
   .glass-card {
     @apply bg-card border border-border rounded-lg shadow-sm;
   }
@@ -163,6 +172,32 @@
 
   .glass-input {
     @apply bg-background border border-border rounded-lg shadow-sm;
+  }
+
+  /* Minecraft-inspired blocky elements */
+  .blocky-card {
+    @apply bg-card border-2 border-border rounded-sm shadow-lg;
+    border-style: outset;
+  }
+
+  .blocky-button {
+    @apply bg-background hover:bg-muted border-2 border-border rounded-sm shadow-md transition-all duration-150;
+    border-style: outset;
+  }
+
+  .blocky-button:active {
+    border-style: inset;
+    transform: translateY(1px);
+  }
+
+  .blocky-input {
+    @apply bg-background border-2 border-border rounded-sm shadow-sm;
+    border-style: inset;
+  }
+
+  /* Minecraft-style pixelated borders */
+  .pixel-border {
+    border-image: url("data:image/svg+xml,%3csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M0 0h100v100H0z' fill='%23ccc'/%3e%3cpath d='M0 0h100v2H0z' fill='%23fff'/%3e%3cpath d='M0 0h2v100H0z' fill='%23fff'/%3e%3cpath d='M98 0h2v100h-2z' fill='%23888'/%3e%3cpath d='M0 98h100v2H0z' fill='%23888'/%3e%3c/svg%3e") 2;
   }
 
   /* Theme Background Classes - Flat Pastel Colors */
