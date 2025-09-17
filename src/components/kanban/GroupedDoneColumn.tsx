@@ -162,7 +162,7 @@ export const GroupedDoneColumn = ({
 
   return (
     <Card 
-      className="backdrop-blur-sm bg-card/80 border-border/50 h-fit transition-all group"
+      className="backdrop-blur-sm bg-card/80 border-green-200 dark:border-green-800 h-fit transition-all group"
       onDragOver={handleDragOver}
       onDrop={handleDrop}
       onMouseEnter={() => setIsHovered(true)}
@@ -171,14 +171,15 @@ export const GroupedDoneColumn = ({
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
           <div>
-            <CardTitle className="text-lg flex items-center gap-2">
+            <CardTitle className="text-lg flex items-center gap-2 text-green-700 dark:text-green-300">
+              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
               <Calendar className="w-4 h-4" />
               {title}
             </CardTitle>
             <CardDescription>{description}</CardDescription>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-sm text-muted-foreground bg-muted px-2 py-1 rounded">
+            <span className="text-sm text-green-700 dark:text-green-300 bg-green-100 dark:bg-green-900/50 px-2 py-1 rounded">
               {tasks.length}
             </span>
             {isHovered && !isAddingTask && (
@@ -225,13 +226,14 @@ export const GroupedDoneColumn = ({
           <div className="space-y-4">
             {sortedDateGroups.map(({ dateKey, date, tasks: dayTasks }) => (
               <div key={dateKey} className="space-y-2">
-                <div className="flex items-center gap-2 px-2 py-1 bg-muted/50 rounded-md">
-                  <Calendar className="w-3 h-3 text-muted-foreground" />
-                  <span className="text-sm font-medium text-foreground">
+                <div className="flex items-center gap-2 px-3 py-2 bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 rounded-lg">
+                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                  <Calendar className="w-3 h-3 text-green-600 dark:text-green-400" />
+                  <span className="text-sm font-medium text-green-800 dark:text-green-200">
                     {formatDateHeader(date)}
                   </span>
-                  <span className="text-xs text-muted-foreground">
-                    ({dayTasks.length} task{dayTasks.length !== 1 ? 's' : ''})
+                  <span className="text-xs text-green-600 dark:text-green-400 bg-green-100 dark:bg-green-900/50 px-2 py-0.5 rounded-full">
+                    {dayTasks.length} task{dayTasks.length !== 1 ? 's' : ''}
                   </span>
                 </div>
                 <div className="space-y-2 pl-2">
